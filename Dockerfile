@@ -4,7 +4,7 @@ FROM nginx
 ENV container docker
 
 RUN apt update && \
-    apt install -y python python-dev libffi6 libffi-dev libssl-dev curl build-essential && \
+    apt install -y python python-dev libffi6 libffi-dev libssl-dev curl build-essential cron && \
     curl -L 'https://bootstrap.pypa.io/get-pip.py' | python && \
     pip install -U cffi certbot && \
     apt remove --purge -y python-dev build-essential libffi-dev libssl-dev curl && \
@@ -13,4 +13,4 @@ RUN apt update && \
     rm -rf /var/lib/apt/lists/*
 
 
-
+CMD cron && nginx -g "daemon off;"
